@@ -2,7 +2,9 @@ package com.spring_auth.springsecurity.controller;
 
 import com.spring_auth.springsecurity.config.Configs;
 import com.spring_auth.springsecurity.config.constants.JsonResponses;
+import com.spring_auth.springsecurity.dto.LoginUserDTO;
 import com.spring_auth.springsecurity.dto.RegisterUserDTO;
+import com.spring_auth.springsecurity.service.LoginService;
 import com.spring_auth.springsecurity.service.RegisterService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -16,10 +18,13 @@ public class HomeController{
     @Autowired
     private RegisterService registerService;
 
+    @Autowired
+    private LoginService loginService;
+
     @GetMapping("/register_user")
-    public ResponseEntity<?> haltOperation(){
+    public ResponseEntity<?> stopRegistration(){
         JsonResponses response = new JsonResponses("GET NOT ALLOWED");
-        return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(response, HttpStatus.METHOD_NOT_ALLOWED);
     }
 
     @PostMapping("/register_user")
@@ -38,6 +43,34 @@ public class HomeController{
              String password = registerUserDTO.getPassword();
 
             return registerService.registerUser(name,email,password);
+        }
+        else {
+            JsonResponses response = new JsonResponses("Invalid Token");
+            return new ResponseEntity<>(response, HttpStatus.UNAUTHORIZED);
+        }
+    }
+
+    @GetMapping("/login")
+    public ResponseEntity<?> stopLogin(){
+        JsonResponses response = new JsonResponses("GET NOT ALLOWED");
+        return new ResponseEntity<>(response, HttpStatus.METHOD_NOT_ALLOWED);
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity<?> loginUser(@RequestBody LoginUserDTO loginUserDTO){
+        String expectedToken = Configs.TOKEN;
+
+        if (!StringUtils.hasText(loginUserDTO.getToken()) || !StringUtils.hasText(loginUserDTO.getEmail())
+                || !StringUtils.hasText(loginUserDTO.getPassword())) {
+            JsonResponses response = new JsonResponses("Please fill all fields");
+            return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+        }
+
+        if (loginUserDTO.getToken().equals(expectedToken)) {
+            String email = loginUserDTO.getEmail();
+            String password = loginUserDTO.getPassword();
+
+            return loginService.loginUser(email,password);
         }
         else {
             JsonResponses response = new JsonResponses("Invalid Token");
