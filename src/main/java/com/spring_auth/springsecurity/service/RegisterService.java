@@ -13,6 +13,8 @@ import org.springframework.stereotype.Service;
 public class RegisterService {
     @Autowired
     UserDetailsDao userDetailsDao;
+
+    //ResponseEntity<JsonResponses> registerUser(String name, String email, String password); added by kevin
     @Autowired
     private BCryptPasswordEncoder passwordEncoder;
     public ResponseEntity<JsonResponses> registerUser(String name, String email, String password) {
