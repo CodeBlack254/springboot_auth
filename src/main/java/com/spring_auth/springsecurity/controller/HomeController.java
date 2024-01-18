@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("auth")
+@CrossOrigin(origins = "http://localhost:3000") // Allow requests from this origin
 public class HomeController{
     @Autowired
     private RegisterService registerService;
