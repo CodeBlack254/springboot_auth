@@ -1,5 +1,6 @@
 package com.spring_auth.springsecurity.dto;
 
+//transfer data between the controller and service layers
 public class LoginUserDTO {
     private String token;
     private String email;
