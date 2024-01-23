@@ -1,6 +1,7 @@
 
 package com.spring_auth.springsecurity.service;
 import com.spring_auth.springsecurity.config.constants.JsonResponses;
+import com.spring_auth.springsecurity.dto.RegisterUserDTO;
 import com.spring_auth.springsecurity.implementation.RegisterServiceImp;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -14,8 +15,7 @@ public class RegisterService {
         this.registerServiceImp = registerServiceImp;
     }
 
-    public ResponseEntity<JsonResponses> registerUser(String name, String email, String password) {
-        return registerServiceImp.registerUser(name, email, password);
+    public ResponseEntity<JsonResponses> registerUser(RegisterUserDTO registerUserDTO) {
+        return registerServiceImp.registerUser(registerUserDTO);
     }
-
 }

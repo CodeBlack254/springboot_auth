@@ -24,7 +24,6 @@ public class HomeController{
         this.loginService = loginService;
     }
 
-
     @GetMapping("/register_user")
     public ResponseEntity<?> stopRegistration(){
         JsonResponses response = new JsonResponses("GET NOT ALLOWED");
@@ -33,25 +32,7 @@ public class HomeController{
 
     @PostMapping("/register_user")
     public ResponseEntity<?> registerUser(@RequestBody  RegisterUserDTO registerUserDTO){
-        String expectedToken = Configs.TOKEN;
-
-        if (!StringUtils.hasText(registerUserDTO.getToken()) || !StringUtils.hasText(registerUserDTO.getEmail())
-                || !StringUtils.hasText(registerUserDTO.getName()) || !StringUtils.hasText(registerUserDTO.getPassword())) {
-            JsonResponses response = new JsonResponses("Please fill all fields");
-            return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
-        }
-
-        if (registerUserDTO.getToken().equals(expectedToken)) {
-             String name = registerUserDTO.getName();
-             String email = registerUserDTO.getEmail();
-             String password = registerUserDTO.getPassword();
-
-            return registerService.registerUser(name,email,password);
-        }
-        else {
-            JsonResponses response = new JsonResponses("Invalid Token");
-            return new ResponseEntity<>(response, HttpStatus.UNAUTHORIZED);
-        }
+        return registerService.registerUser(registerUserDTO);
     }
 
     @GetMapping("/login")
@@ -62,24 +43,7 @@ public class HomeController{
 
     @PostMapping("/login")
     public ResponseEntity<?> loginUser(@RequestBody LoginUserDTO loginUserDTO){
-        String expectedToken = Configs.TOKEN;
-
-        if (!StringUtils.hasText(loginUserDTO.getToken()) || !StringUtils.hasText(loginUserDTO.getEmail())
-                || !StringUtils.hasText(loginUserDTO.getPassword())) {
-            JsonResponses response = new JsonResponses("Please fill all fields");
-            return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
-        }
-
-        if (loginUserDTO.getToken().equals(expectedToken)) {
-            String email = loginUserDTO.getEmail();
-            String password = loginUserDTO.getPassword();
-
-            return loginService.loginUser(email,password);
-        }
-        else {
-            JsonResponses response = new JsonResponses("Invalid Token");
-            return new ResponseEntity<>(response, HttpStatus.UNAUTHORIZED);
-        }
+        return loginService.loginUser(loginUserDTO);
     }
 }
 
