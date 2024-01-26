@@ -3,8 +3,18 @@ package com.spring_auth.springsecurity.dto;
 public class RegisterUserDTO {
     private String token;
     private String name;
+
+    public String getRoles() {
+        return roles;
+    }
+
+    public void setRoles(String roles) {
+        this.roles = roles;
+    }
+
     private String email;
     private String password;
+    private String roles;
 
     public String getToken() {
         return token;

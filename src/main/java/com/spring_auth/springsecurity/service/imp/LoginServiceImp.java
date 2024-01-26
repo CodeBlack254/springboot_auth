@@ -1,9 +1,9 @@
-package com.spring_auth.springsecurity.implementation;
+package com.spring_auth.springsecurity.service.imp;
 import com.spring_auth.springsecurity.config.Configs;
-import com.spring_auth.springsecurity.config.constants.JsonResponses;
+import com.spring_auth.springsecurity.constants.JsonResponses;
 import com.spring_auth.springsecurity.dto.LoginUserDTO;
-import com.spring_auth.springsecurity.repository.UserDetailsRepo;
-import com.spring_auth.springsecurity.model.UserDetails;
+import com.spring_auth.springsecurity.repository.UserInfoRepo;
+import com.spring_auth.springsecurity.model.UserInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,12 +13,12 @@ import org.springframework.util.StringUtils;
 
 @Service
 public class LoginServiceImp{
-    private final UserDetailsRepo userDetailsRepo;
+    private final UserInfoRepo userInfoRepo;
     private final BCryptPasswordEncoder passwordEncoder;
 
     @Autowired
-    public LoginServiceImp(UserDetailsRepo userDetailsRepo, BCryptPasswordEncoder passwordEncoder) {
-        this.userDetailsRepo = userDetailsRepo;
+    public LoginServiceImp(UserInfoRepo userInfoRepo, BCryptPasswordEncoder passwordEncoder) {
+        this.userInfoRepo = userInfoRepo;
         this.passwordEncoder = passwordEncoder;
     }
 
@@ -36,10 +36,10 @@ public class LoginServiceImp{
             String password = loginUserDTO.getPassword();
 
             try {
-                UserDetails userDetails = userDetailsRepo.findByEmail(email);
+                UserInfo userInfo = userInfoRepo.findByEmail(email);
 
-                if (userDetails != null) {
-                    if (passwordEncoder.matches(password, userDetails.getPassword())) {
+                if (userInfo != null) {
+                    if (passwordEncoder.matches(password, userInfo.getPassword())) {
                         JsonResponses response = new JsonResponses("Login Successful");
                         return new ResponseEntity<>(response, HttpStatus.OK);
                     } else {

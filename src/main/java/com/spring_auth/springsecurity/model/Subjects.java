@@ -15,7 +15,7 @@ public class Subjects {
 
     @ManyToOne
     @JoinColumn(name = "user_id", referencedColumnName = "id")
-    private UserDetails userDetails;
+    private UserInfo userInfo;
 
     // constructors, getters, setters
 }

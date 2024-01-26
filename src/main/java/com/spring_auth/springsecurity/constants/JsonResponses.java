@@ -1,4 +1,4 @@
-package com.spring_auth.springsecurity.config.constants;
+package com.spring_auth.springsecurity.constants;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import org.springframework.http.HttpStatus;
