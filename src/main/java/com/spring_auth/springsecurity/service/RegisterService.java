@@ -1,8 +1,8 @@
 
 package com.spring_auth.springsecurity.service;
-import com.spring_auth.springsecurity.config.constants.JsonResponses;
+import com.spring_auth.springsecurity.constants.JsonResponses;
 import com.spring_auth.springsecurity.dto.RegisterUserDTO;
-import com.spring_auth.springsecurity.implementation.RegisterServiceImp;
+import com.spring_auth.springsecurity.service.imp.RegisterServiceImp;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 

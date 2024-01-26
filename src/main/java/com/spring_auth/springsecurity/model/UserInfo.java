@@ -6,13 +6,22 @@ import java.util.List;
 
 @Entity
 @Data
-public class UserDetails {
+public class UserInfo {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     private String name;
     private String email;
+    @Column(columnDefinition = "VARCHAR(255) DEFAULT 'student'")
+    private String roles;
+    public String getRoles() {
+        return roles;
+    }
+
+    public void setRoles(String roles) {
+        this.roles = roles;
+    }
 
     public Integer getId() {
         return id;
@@ -48,7 +57,7 @@ public class UserDetails {
 
     private String password;
 
-    @OneToMany(mappedBy = "userDetails", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "userInfo", cascade = CascadeType.ALL)
     private List<Subjects> subjects;
 
     public List<Subjects> getSubjects() {
@@ -67,6 +76,6 @@ public class UserDetails {
         this.classes = classes;
     }
 
-    @OneToMany(mappedBy = "userDetails", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "userInfo", cascade = CascadeType.ALL)
     private List<Classes> classes;
 }

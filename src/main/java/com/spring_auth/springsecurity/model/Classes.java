@@ -16,5 +16,5 @@ public class Classes {
 
     @ManyToOne
     @JoinColumn(name = "user_id", referencedColumnName = "id")
-    private UserDetails userDetails;
+    private UserInfo userInfo;
 }
